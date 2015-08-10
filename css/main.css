@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/08/2015, 09:30:01 AM
+    Author     : ltoscano
+*/
+
+body{
+    background-color:#B1B1B1;
+}
+
+table
+{         
+    font-family: 'Source Sans Pro', sans-serif;
+    color:#FFFFFF;
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td
+{
+    padding: 5px;
+    background-color: #299686;
+    border: solid 1px #e8eef4;
+
+}
+
+table tr
+{
+    padding: 3px 2px;
+    text-align: left;        
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+
+}
