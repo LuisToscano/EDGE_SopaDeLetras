@@ -36,20 +36,20 @@
                             id: 'SOPA',
                             symbolName: 'SOPA',
                             type: 'rect',
-                            rect: ['123px', '82px', '357', '233', 'auto', 'auto'],
-                            transform: [[],[],[],['1.5042','1.51073']]
+                            rect: ['578px', '258px', '357', '233', 'auto', 'auto'],
+                            transform: [[],[],[],['4.05322','3.02146']]
                         },
                         {
                             id: 'TIMER_CONTAINER',
                             symbolName: 'testBtn',
                             type: 'rect',
-                            rect: ['607', '22', '228', '56', 'auto', 'auto']
+                            rect: ['1547px', '34px', '228', '56', 'auto', 'auto']
                         },
                         {
                             id: 'btnTimer',
                             symbolName: 'btnTimer',
                             type: 'rect',
-                            rect: ['610', '108', '225', '56', 'auto', 'auto']
+                            rect: ['1548px', '120px', '225', '56', 'auto', 'auto']
                         }
                     ],
                     style: {
@@ -62,48 +62,88 @@
                     }
                 },
                 timeline: {
-                    duration: 0,
+                    duration: 500,
                     autoPlay: true,
                     data: [
                         [
-                            "eid13",
+                            "eid31",
                             "top",
                             0,
                             0,
                             "linear",
                             "${SOPA}",
-                            '82px',
-                            '82px'
+                            '258px',
+                            '258px'
                         ],
                         [
-                            "eid7",
+                            "eid30",
                             "scaleY",
                             0,
                             0,
                             "linear",
                             "${SOPA}",
-                            '1.51073',
-                            '1.51073'
+                            '3.02146',
+                            '3.02146'
                         ],
                         [
-                            "eid6",
+                            "eid26",
+                            "left",
+                            0,
+                            0,
+                            "linear",
+                            "${btnTimer}",
+                            '1548px',
+                            '1548px'
+                        ],
+                        [
+                            "eid28",
                             "scaleX",
                             0,
                             0,
                             "linear",
                             "${SOPA}",
-                            '1.5042',
-                            '1.5042'
+                            '4.05322',
+                            '4.05322'
                         ],
                         [
-                            "eid12",
+                            "eid24",
+                            "left",
+                            0,
+                            0,
+                            "linear",
+                            "${TIMER_CONTAINER}",
+                            '1547px',
+                            '1547px'
+                        ],
+                        [
+                            "eid27",
+                            "top",
+                            0,
+                            0,
+                            "linear",
+                            "${btnTimer}",
+                            '120px',
+                            '120px'
+                        ],
+                        [
+                            "eid25",
+                            "top",
+                            0,
+                            0,
+                            "linear",
+                            "${TIMER_CONTAINER}",
+                            '34px',
+                            '34px'
+                        ],
+                        [
+                            "eid29",
                             "left",
                             0,
                             0,
                             "linear",
                             "${SOPA}",
-                            '123px',
-                            '123px'
+                            '578px',
+                            '578px'
                         ]
                     ]
                 }
@@ -143,24 +183,23 @@
                 content: {
                     dom: [
                         {
-                            rect: ['0px', '0px', '225px', '56px', 'auto', 'auto'],
+                            type: 'rect',
                             id: 'Rectangle',
                             stroke: [0, 'rgba(0,0,0,1)', 'none'],
-                            type: 'rect',
+                            rect: ['0px', '0px', '225px', '56px', 'auto', 'auto'],
                             fill: ['rgba(171,171,171,1)']
                         },
                         {
-                            rect: ['9px', '16px', '200px', '42px', 'auto', 'auto'],
+                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
                             id: 'Text',
                             text: '<p style=\"margin: 0px; text-align: center;\"><span style=\"font-weight: 700;\">TIMER</span></p>',
-                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
-                            type: 'text'
+                            type: 'text',
+                            rect: ['9px', '16px', '200px', '42px', 'auto', 'auto']
                         }
                     ],
                     style: {
                         '${symbolSelector}': {
-                            isStage: 'true',
-                            rect: [undefined, undefined, '228px', '56px']
+                            rect: [null, null, '228px', '56px']
                         }
                     }
                 },
@@ -225,26 +264,25 @@
                 content: {
                     dom: [
                         {
-                            rect: ['0px', '0px', '225px', '56px', 'auto', 'auto'],
+                            type: 'rect',
                             id: 'Rectangle',
                             stroke: [0, 'rgba(0,0,0,1)', 'none'],
-                            type: 'rect',
+                            rect: ['0px', '0px', '225px', '56px', 'auto', 'auto'],
                             fill: ['rgba(214,219,65,1.00)']
                         },
                         {
-                            rect: ['14px', '14px', '200px', '36px', 'auto', 'auto'],
-                            textStyle: ['', '', '', '', 'none'],
                             font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(255,255,255,1)', '400', 'none', 'normal', 'break-word', 'normal'],
-                            id: 'Text',
-                            text: '<p style=\"margin: 0px; text-align: center;\">​<span style=\"color: rgb(0, 0, 0); font-weight: 700;\">Soy el botón</span></p>',
+                            type: 'text',
                             align: 'left',
-                            type: 'text'
+                            id: 'Text',
+                            textStyle: ['', '', '', '', 'none'],
+                            text: '<p style=\"margin: 0px; text-align: center;\">​<span style=\"color: rgb(0, 0, 0); font-weight: 700;\">Soy el botón</span></p>',
+                            rect: ['14px', '14px', '200px', '36px', 'auto', 'auto']
                         }
                     ],
                     style: {
                         '${symbolSelector}': {
-                            isStage: 'true',
-                            rect: [undefined, undefined, '225px', '56px']
+                            rect: [null, null, '225px', '56px']
                         }
                     }
                 },

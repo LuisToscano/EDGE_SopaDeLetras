@@ -27,7 +27,7 @@ $("body").on("EDGE_Recurso_postSubmitApplied", function (data) {
 });
 
 $("body").on("EDGE_Recurso_sendPreviousData", function (data) {
-
+    inicializarSopaDeLetras(data.sym);
     var stage = $(data.sym.getComposition().getStage().ele);
     aplicarCambiosPreviosPickMany(data.previous_data, data.sym);
 
@@ -53,6 +53,7 @@ $("body").on("EDGE_Recurso_sendPreviousData", function (data) {
             stage.prop("interaction_type", "other");
             stage.prop("intentos_previos", 0);
             stage.prop("blocked", false);
+            stage.prop("respuestas", []);
 
 
             var defaults = {
@@ -381,7 +382,7 @@ function initialize(defaults, sym) {
                             aciertos += 1;
                         }
                     }
-
+                    stage.prop("respuestas").push(selecion);
                     //alert("Encontraste la palabra: " + selecion);
                     if (!verificar) {
                         miradorpalabras += selecion + ", ";
@@ -461,7 +462,7 @@ function sopaDeLetrasSubmit(sym) {
         timer.current_state = null;
     }
 
-    enviarEventoInteraccion(stage.prop("interaction_type"), stage.prop("pregunta"), "", "correct", stage.prop("intentos_previos"), stage.prop("num_intentos"), timer, sym);
+    enviarEventoInteraccion(stage.prop("interaction_type"), stage.prop("pregunta"), stage.prop("respuestas"), "correct", stage.prop("intentos_previos"), stage.prop("num_intentos"), timer, sym);
 }
 
 //******************************************************************************
@@ -478,4 +479,10 @@ function mostrarRespuestasSopaDeLetras(sym) {
         }
         $(this).off("click");
     });
+}
+
+//******************************************************************************
+
+function inicializar(sym){
+    inicializarSopaDeLetras(sym);
 }
