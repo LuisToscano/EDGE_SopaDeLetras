@@ -1,7 +1,3 @@
-//***********************************************************************
-
-//Evento que se dispara después de que el controlador recibe y transforma los resultados de una interacción.
-
 $("body").on("EDGE_Recurso_postSubmitApplied", function (data) {
 
     var stage = $(data.sym.getComposition().getStage().ele);
@@ -48,7 +44,7 @@ $("body").on("EDGE_Recurso_sendPreviousData", function (data) {
         function inicializarSopaDeLetras(sym)
         {
             $el = sym.$("SOPA");
-            $t = $("<table>");
+            $t = $("<table>").addClass("sopaTable");
             var stage = $(sym.getComposition().getStage().ele);
             stage.prop("interaction_type", "other");
             stage.prop("intentos_previos", 0);
@@ -160,7 +156,11 @@ function initialize(defaults, sym) {
                     if (enquepos == i) {
                         if (contadorletras < defaults.palabras[contadorpalabras].name.length) {
                             var element = $("<td/>");
-                            element.attr("nocruzar", "S").html(defaults.palabras[contadorpalabras].name.charAt(contadorletras)).appendTo($header).prop("esRespuesta", true).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
+                            var letraDiv = jQuery('<div/>', {class:"letraContainer"});
+                            var letraSpan = jQuery('<span/>', {});
+                            letraSpan.html(defaults.palabras[contadorpalabras].name.charAt(contadorletras));
+                            letraDiv.html(letraSpan);
+                            element.attr("nocruzar", "S").html(letraDiv).appendTo($header).prop("esRespuesta", true).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
                                 if (activarhover) {
                                     $(this).css("color", "#006370");
                                 }
@@ -173,7 +173,11 @@ function initialize(defaults, sym) {
                             enquepos++;
                         }
                         else {
-                            $("<td>").attr("nocruzar", "F").html(letras[letraelegidapos]).appendTo($header).prop("esRespuesta", false).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
+                            var letraDiv = jQuery('<div/>', {class:"letraContainer"});
+                            var letraSpan = jQuery('<span/>', {});
+                            letraSpan.html(letras[letraelegidapos]);
+                            letraDiv.html(letraSpan);
+                            $("<td>").attr("nocruzar", "F").html(letraDiv).appendTo($header).prop("esRespuesta", false).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
                                 if (activarhover) {
                                     $(this).css("color", "#006370");
                                 }
@@ -184,7 +188,11 @@ function initialize(defaults, sym) {
                         }
                     }
                     else {
-                        $("<td>").attr("nocruzar", "F").html(letras[letraelegidapos]).appendTo($header).prop("esRespuesta", false).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
+                        var letraDiv = jQuery('<div/>', {class:"letraContainer"});
+                        var letraSpan = jQuery('<span/>', {});
+                        letraSpan.html(letras[letraelegidapos]);
+                        letraDiv.html(letraSpan);
+                        $("<td>").attr("nocruzar", "F").html(letraDiv).appendTo($header).prop("esRespuesta", false).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
                             if (activarhover) {
                                 $(this).css("color", "#006370")
                             }
@@ -195,7 +203,11 @@ function initialize(defaults, sym) {
                     }
                 }
                 else {
-                    $("<td>").attr("nocruzar", "F").html(letras[letraelegidapos]).appendTo($header).prop("esRespuesta", false).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
+                    var letraDiv = jQuery('<div/>', {class:"letraContainer"});
+                    var letraSpan = jQuery('<span/>', {});
+                    letraSpan.html(letras[letraelegidapos]);
+                    letraDiv.html(letraSpan);
+                    $("<td>").attr("nocruzar", "F").html(letraDiv).appendTo($header).prop("esRespuesta", false).attr("pos", i.toString() + ";" + j.toString()).css("cursor", "pointer").hover(function () {
                         if (activarhover) {
                             $(this).css("color", "#006370")
                         }
@@ -275,8 +287,11 @@ function initialize(defaults, sym) {
             }
 
             for (var i = 0; i < defaults.palabras[v].name.length; i++) {
-
-                $("td[pos='" + posx.toString() + ";" + posy.toString() + "']").html(defaults.palabras[v].name.charAt(i)).prop("esRespuesta", true).attr("nocruzar", "S").css("font-weight");
+                var letraDiv = jQuery('<div/>', {class:"letraContainer"});
+                var letraSpan = jQuery('<span/>', {});
+                letraSpan.html(defaults.palabras[v].name.charAt(i));
+                letraDiv.html(letraSpan);
+                $("td[pos='" + posx.toString() + ";" + posy.toString() + "']").html(letraDiv).prop("esRespuesta", true).attr("nocruzar", "S").css("font-weight");
                 posy++;
             }
         }
@@ -293,7 +308,7 @@ function initialize(defaults, sym) {
         if(!stage.prop("blocked")){
         var $g = this;
         cantidadclicks += 1;
-        $(td).css("color", "yellow");
+        $(td).find("span").addClass("selected");
         if (cantidadclicks == 1) {
             posicionx = $(td).attr("pos").split(";")[0];
             posiciony = $(td).attr("pos").split(";")[1];
@@ -311,27 +326,27 @@ function initialize(defaults, sym) {
             var total = posicionx1 - posicionx;
 
             if (total < 0) {
-                $(td).css("color", "");
+                $(td).find("span").removeClass("selected");
                 $("td[pos='" + posicionx.toString() + ";" + posiciony.toString() + "']").css("color", "");
-                $(".noes").css("color", "");
+                $(".noes").find("span").removeClass("selected");
                 return;
             }
 
             if (posiciony != posiciony1) {
                 total = posiciony1 - posiciony
                 if (total < 0) {
-                    $(td).css("color", "");
-                    $("td[pos='" + posicionx.toString() + ";" + posiciony1.toString() + "']").css("color", "");
-                    $(".noes").css("color", "");
+                    $(td).find("span").removeClass("selected");
+                    $("td[pos='" + posicionx.toString() + ";" + posiciony1.toString() + "']").find("span").removeClass("selected");;
+                    $(".noes").find("span").removeClass("selected");
                     return;
                 }
 
                 while (true) {
                     var $tdlocal = $("td[pos='" + x.toString() + ";" + y.toString() + "']");
-                    selecion += $tdlocal.html();
+                    selecion += $tdlocal.find("span").html();
 
-                    $tdlocal.css("color", "#006370");
-                    $tdlocal.css("font-weight", "bold");
+                    $tdlocal.find("div").addClass("found");
+                    $tdlocal.find("span").removeClass("selected");
                     $tdlocal.removeClass("noes");
 
                     if (i == total + 1) {
@@ -346,10 +361,10 @@ function initialize(defaults, sym) {
 
                 while (true) {
                     var $tdlocal = $("td[pos='" + x.toString() + ";" + y.toString() + "']");
-                    selecion += $tdlocal.html();
+                    selecion += $tdlocal.find("span").html();
 
-                    $tdlocal.css("color", "#006370");
-                    $tdlocal.css("font-weight", "bold");
+                    $tdlocal.find("div").addClass("found");
+                    $tdlocal.find("span").removeClass("selected");
                     $tdlocal.removeClass("noes");
 
                     if (i == total + 1) {
@@ -390,7 +405,8 @@ function initialize(defaults, sym) {
 
                     $("td[class='']").addClass("noborrar");
                     if (aciertos == defaults.palabras.length) {
-                        //alert("Felicitaciones!!!. Has encontrado todas las palabras
+                        //alert("Felicitaciones!!!. Has encontrado todas las palabras");
+                            mostrarRespuestasSopaDeLetras(sym);
                         sopaDeLetrasSubmit(sym);
                     }
                 }
@@ -409,8 +425,6 @@ function initialize(defaults, sym) {
                         var $tdlocal = $("td[pos='" + x.toString() + ";" + y.toString() + "']");
                         if (!$tdlocal.hasClass("noborrar")) {
                             selecion += $tdlocal.html();
-                            $tdlocal.css("color", "");
-                            $tdlocal.css("font-weight", "normal");
                             $tdlocal.addClass("noes");
                         }
                         if (i == total + 1) {
@@ -426,8 +440,6 @@ function initialize(defaults, sym) {
                         var $tdlocal = $("td[pos='" + x.toString() + ";" + y.toString() + "']");
                         if (!$tdlocal.hasClass("noborrar")) {
                             selecion += $tdlocal.html();
-                            $tdlocal.css("color", "");
-                            $tdlocal.css("font-weight", "normal");
                             $tdlocal.addClass("noes");
                         }
                         if (i == total + 1) {
@@ -437,7 +449,9 @@ function initialize(defaults, sym) {
                         i++;
                     }
                 }
-                $(".noes").css("color", "");
+                
+                $(".noes").find("div").removeClass("found");
+                $(".noes").find("span").removeClass("selected");
             }
         }
     }
@@ -473,10 +487,9 @@ function mostrarRespuestasSopaDeLetras(sym) {
 
     $(sopaObj.find(tdObj)).each(function () {
         if ($(this).prop("esRespuesta")) {
-            $(this).css("color", "yellow");
-        } else {
-            $(this).css("color", "#C0C0C0");
-        }
+            $(this).find("div").removeClass("found");
+            $(this).find("div").addClass("answer");
+        } 
         $(this).off("click");
     });
 }
