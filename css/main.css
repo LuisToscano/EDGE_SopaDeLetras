@@ -9,31 +9,66 @@ and open the template in the editor.
 */
 
 body{
-    background-color:#B1B1B1;
+    //background-color:#B1B1B1;
 }
 
-table
+.sopaContainer
+{         
+   background-color: #E6E6E6;
+}
+
+
+.sopaTable
 {         
     font-family: 'Source Sans Pro', sans-serif;
-    color:#FFFFFF;
-    border: solid 1px #e8eef4;
-    border-collapse: collapse;
-    width: 100%;
+    width: 740px;
+    background-color: #e6e6e6;
+    border: solid 10px #4A215E;
+    border-radius: 2%;
+    padding: 5px;
 }
 
 table td
 {
-    padding: 5px;
-    background-color: #299686;
-    border: solid 1px #e8eef4;
-
+    text-align: center;
+    padding-bottom: 3px;
+    padding-top:3px;
+    width: 4%;
 }
 
-table tr
-{
-    padding: 3px 2px;
-    text-align: left;        
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
+div .letraContainer{
+    width: 80%;
+    height: 100%;
+    background-color: #FFFFFF;
+    border: solid 1px #999999;
+    margin: 0 auto;
+    border-radius: 25%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 24pt;
+    text-align: center;
+    font-weight: bold;
+    color: #4A215E;
+}
 
+div .letraContainer span{
+    margin: 0 auto;
+}
+
+span.selected{
+    color: #DA9500;
+}
+
+div.answer{
+    color: #FFFFFF;
+    background-color: #4A215E;
+}
+
+div.disabled{
+    color: #E8E8E8;
+}
+
+div.found{
+    background-color: #c6afdc;
 }

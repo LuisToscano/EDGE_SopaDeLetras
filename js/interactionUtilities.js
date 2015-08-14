@@ -6,21 +6,26 @@ $("body").on("EDGE_Recurso_promiseCreated", function(evt){
         identify: stage.prop("ed_identify")
     };
     
+    if(typeof startTimer == 'function'){
+        inicializarTimer(evt.sym);
+    }
+    
     console.log("INTERACTION UTILITIES CREATED", objEvt, stage);
     parent.$(parent.document).trigger(objEvt);
 });
 
-function enviarEventoInteraccion(tipo, pregunta, respuesta, resultado, intentos_previos, limite_intentos, timerObj, sym) {
+function enviarEventoInteraccion(tipo, pregunta, respuesta_usuario, patron_respuestas, resultado, intentos_previos, limite_intentos, timerObj, sym) {
     var stage = $(sym.getComposition().getStage().ele);
     parent.$(parent.document).trigger({
         type: "EDGE_Plantilla_submitApplied",
         interactionType: tipo,
         question: pregunta,
-        answer: respuesta,
+        answer: respuesta_usuario,
         results: resultado,
         attempts: intentos_previos,
         attempts_limit: limite_intentos,
         timer: timerObj,
+        response_pattern: patron_respuestas,
         sym: sym,
         identify: stage.prop("ed_identify")
     });
@@ -34,7 +39,7 @@ $("body").on("TimeOut", function (data) {
     timer.remaining_time = 0;
     timer.time_out = true;
     timer.current_state = timerObj.prop("alertState");
-    enviarEventoInteraccion(stage.prop("interaction_type"), stage.prop("pregunta"), "", "incorrect", stage.prop("intentos_previos"), stage.prop("num_intentos"), timer, data.sym);
+    enviarEventoInteraccion(stage.prop("interaction_type"), stage.prop("pregunta"), "", stage.prop("posicionRespuestas"), "incorrect", stage.prop("intentos_previos"), stage.prop("num_intentos"), timer, data.sym);
 });
 
 function buscar_sym(sym, arrSymSearch, boolJQUERY) {

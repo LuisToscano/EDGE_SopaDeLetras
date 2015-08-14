@@ -5,7 +5,7 @@
  */
 
 $("body").on("TimeAlert", function (data) {
-    cambiarEstadoTimer(data.sym, data.remaining_time);  //POSIBLEMENTE CON ERROR
+    cambiarEstadoTimer(data.sym, data.remaining_time);  //POSIBLEMseENTE CON ERROR
 });
 
 function cambiarEstadoTimer(sym, estado) {
@@ -22,7 +22,9 @@ function cambiarEstadoTimer(sym, estado) {
 
 function inicializarTimer(sym) {
     var stage = $(sym.getComposition().getStage().ele);
-
+    $.ajaxSetup({
+        async: false
+    });
 
     $.getJSON("timer_config.json").done(function (data) {
         var timerObj = buscar_sym(sym, data.sym, true);
@@ -46,35 +48,36 @@ function inicializarTimer(sym) {
 
 function startTimer(sym) {
     var stage = $(sym.getComposition().getStage().ele);
-    var timerObj = buscar_sym(sym, stage.prop("timer"), true);
-    //console.log(timerObj);
-    if (timerObj.prop("interval_id") < 0 && !timerObj.prop("stopped"))
-    {
-        var interval_id = setInterval(function () {
-            var currentTime = timerObj.prop("segundos_restantes");
-            currentTime--;
-            timerObj.prop("timer_text").html(secondsToClockFormat(currentTime));
-            timerObj.prop("segundos_restantes", currentTime);
+    if (!stage.prop("blocked")) {
+        var timerObj = buscar_sym(sym, stage.prop("timer"), true);
+        if (timerObj.prop("interval_id") < 0 && !timerObj.prop("stopped"))
+        {
+            var interval_id = setInterval(function () {
+                var currentTime = timerObj.prop("segundos_restantes");
+                currentTime--;
+                timerObj.prop("timer_text").html(secondsToClockFormat(currentTime));
+                timerObj.prop("segundos_restantes", currentTime);
 
-            if ($.inArray(currentTime, timerObj.prop("alertas")) >= 0) {
-                $("body").trigger({
-                    type: "TimeAlert",
-                    remaining_time: currentTime,
-                    timerObj: timerObj,
-                    sym: sym
-                });
-            }
+                if ($.inArray(currentTime, timerObj.prop("alertas")) >= 0) {
+                    $("body").trigger({
+                        type: "TimeAlert",
+                        remaining_time: currentTime,
+                        timerObj: timerObj,
+                        sym: sym
+                    });
+                }
 
-            if (currentTime <= 0) {
-                stopTimer(sym);
-                $("body").trigger({
-                    type: "TimeOut",
-                    sym: sym
-                });
-            }
+                if (currentTime <= 0) {
+                    stopTimer(sym);
+                    $("body").trigger({
+                        type: "TimeOut",
+                        sym: sym
+                    });
+                }
 
-        }, 1000);
-        timerObj.prop("interval_id", interval_id);
+            }, 1000);
+            timerObj.prop("interval_id", interval_id);
+        }
     }
 }
 
